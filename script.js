@@ -23,7 +23,10 @@ function registrarEquipo(){
 
     equipos.push(equipo);
 
-    agregarHistorial("Equipo registrado: " + nombre);
+    agregarHistorial(
+        "Equipo registrado: " + nombre,
+        "registro"
+    );
 
     actualizarTabla();
     actualizarSelects();
@@ -45,7 +48,10 @@ function registrarPrestamo(){
 
     equipo.estado = "Prestado";
 
-    agregarHistorial("Préstamo de " + equipo.nombre + " para " + usuario);
+    agregarHistorial(
+        "Préstamo de " + equipo.nombre + " para " + usuario,
+        "prestamo"
+    );
 
     actualizarTabla();
 }
@@ -58,7 +64,10 @@ function registrarDevolucion(){
 
     equipo.estado = "Disponible";
 
-    agregarHistorial("Devolución de " + equipo.nombre);
+    agregarHistorial(
+        "Devolución de " + equipo.nombre,
+        "devolucion"
+    );
 
     actualizarTabla();
 }
@@ -81,11 +90,20 @@ function actualizarTabla(){
     });
 }
 
-function agregarHistorial(texto){
+function agregarHistorial(texto, tipo = "info"){
 
-    const fecha = new Date().toLocaleString();
+    const fecha = new Date();
 
-    historial.push(fecha + " - " + texto);
+    const fechaTexto =
+        fecha.toLocaleDateString() +
+        " " +
+        fecha.toLocaleTimeString();
+
+    historial.unshift({
+        mensaje: texto,
+        fecha: fechaTexto,
+        tipo: tipo
+    });
 
     mostrarHistorial();
 }
@@ -98,7 +116,33 @@ function mostrarHistorial(){
 
     historial.forEach(item => {
 
-        lista.innerHTML += `<li>${item}</li>`;
+        let color = "#333";
+
+        if(item.tipo === "prestamo"){
+            color = "#ef6c00";
+        }
+
+        if(item.tipo === "devolucion"){
+            color = "#2e7d32";
+        }
+
+        if(item.tipo === "registro"){
+            color = "#1565c0";
+        }
+
+        lista.innerHTML += `
+            <li style="
+                margin-bottom:10px;
+                padding:10px;
+                border-left:5px solid ${color};
+                background:#f5f5f5;
+                list-style:none;
+                border-radius:5px;
+            ">
+                <strong>${item.fecha}</strong><br>
+                ${item.mensaje}
+            </li>
+        `;
     });
 }
 
