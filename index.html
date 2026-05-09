@@ -1,11 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión Laboratorio</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Sistema de Gestión</h1>
+    <h1>Gestión de Equipos de Laboratorio</h1>
+
+    <div class="contenedor">
+
+        <div class="card">
+            <h2>Registrar Equipo</h2>
+
+            <input type="text" id="nombreEquipo" placeholder="Nombre del equipo">
+
+            <select id="estadoEquipo">
+                <option value="Disponible">Disponible</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+            </select>
+
+            <button onclick="registrarEquipo()">Registrar</button>
+        </div>
+
+        <div class="card">
+            <h2>Préstamo</h2>
+
+            <select id="equipoPrestamo"></select>
+
+            <input type="text" id="usuarioPrestamo" placeholder="Usuario">
+
+            <button onclick="registrarPrestamo()">Registrar préstamo</button>
+        </div>
+
+        <div class="card">
+            <h2>Devolución</h2>
+
+            <select id="equipoDevolucion"></select>
+
+            <button onclick="registrarDevolucion()">Registrar devolución</button>
+        </div>
+
+        <div class="card">
+            <h2>Equipos</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Equipo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tablaEquipos"></tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Historial</h2>
+
+            <ul id="historial"></ul>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
